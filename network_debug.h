@@ -85,6 +85,10 @@ void print_socket_type(const int type){
 
 void print_sockaddr_in(const struct sockaddr_in *a){
     char addr_buf[64];
+    if(a==NULL){
+        printf("sockaddr_in: NULL\n");
+        return;
+    }
     if(a->sin_family!=AF_INET){
         printf("sin_family: ");
         print_socket_domain(a->sin_family);
@@ -98,6 +102,10 @@ void print_sockaddr_in(const struct sockaddr_in *a){
 
 void print_sockaddr_in6(const struct sockaddr_in6 *a){
     char addr_buf[64];
+    if(a==NULL){
+        printf("sockaddr_in6: NULL\n");
+        return;
+    }
     if(a->sin6_family!=AF_INET6){
         printf("sin6_family: ");
         print_socket_domain(a->sin6_family);

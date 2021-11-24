@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
         return -1;
     }
 
-    //node=argv[1];
+    node=argv[1];
     print_getaddrinfo(&hints);
     memset(&hints, 0, sizeof(hints));
     if((getaddrinfo_return=getaddrinfo(node,port_no,&hints,&res))!=0){
