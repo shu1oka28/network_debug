@@ -31,6 +31,10 @@ int main(int argc, char *argv[]){
         print_getaddrinfo(rp);
     }
     freeaddrinfo(res);
+    printf("sizeof(sockaddr)%lu\n",sizeof(struct sockaddr));
+    printf("sizeof(sockaddr)%lu\n",sizeof(struct sockaddr_in));
+    printf("sizeof(sockaddr)%lu\n",sizeof(struct sockaddr_in6));
+    printf("sizeof%lu\n",sizeof(struct in_addr));
     return 0;
 
 }

@@ -40,12 +40,14 @@ print_socket_type(int type);
 
 - `connect(sockfd, addr,addrlen)`の引数のうち，addrの中身を確認
 
-  - IPv4の場合
+  - IPv4の場合(いずれか)
 ```
+print_sockaddr(const struct sockaddr *a)
 print_sockaddr_in(const struct sockaddr_in *a)
 ```
 
   - IPv6の場合
 ```
+print_sockaddr(const struct sockaddr *a)
 print_sockaddr_in6(const struct sockaddr_in6 *a)
 ```

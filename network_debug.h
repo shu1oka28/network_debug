@@ -98,6 +98,7 @@ void print_sockaddr_in(const struct sockaddr_in *a){
     inet_ntop(AF_INET, &a->sin_addr, addr_buf, sizeof(addr_buf));
     printf("sin_addr: %s\n", addr_buf);
     printf("sin_port: %d\n",ntohs(a->sin_port));
+    return;
 }
 
 void print_sockaddr_in6(const struct sockaddr_in6 *a){
@@ -115,7 +116,28 @@ void print_sockaddr_in6(const struct sockaddr_in6 *a){
     inet_ntop(AF_INET6, &a->sin6_addr, addr_buf, sizeof(addr_buf));
     printf("sin6_addr: %s\n", addr_buf);
     printf("sin6_flowinfo: %d\n",a->sin6_flowinfo);
-    printf("sin6_port: %d\n",ntohl(a->sin6_port));
+    printf("sin6_port: %d\n",ntohs(a->sin6_port));
+}
+
+void print_sockaddr(const struct sockaddr *a){
+    if(a==NULL){
+        printf("sockaaddr: NULL\n");
+        return;
+    }
+    printf("a = %lx\n", a);
+    switch(a->sa_family){
+        case AF_INET:
+        print_sockaddr_in((struct sockaddr_in *)a);
+        break;
+        case AF_INET6:
+        print_sockaddr_in6((struct sockaddr_in6 *)a);
+        break;
+        default:
+        printf("sockaddrの中を表示できません(AF_INETとAF_INET6以外はサポートしていません)\n");
+        printf("定義されているfamily: ");
+        print_socket_domain(a->sa_family);
+    }
+    return;
 }
 
 void print_getaddrinfo(const struct addrinfo *rp){
@@ -130,11 +152,7 @@ void print_getaddrinfo(const struct addrinfo *rp){
     print_socket_type(rp->ai_socktype);
     printf("ai_protocol: %d\n", rp->ai_protocol);
     printf("ai_addrlen: %d\n", (int) rp->ai_addrlen);
-    if(rp->ai_family == AF_INET) {
-        print_sockaddr_in((struct sockaddr_in *)rp->ai_addr);
-    } else if(rp->ai_family == AF_INET6) {
-        print_sockaddr_in6((struct sockaddr_in6 *)rp->ai_addr);
-    }
+    print_sockaddr((struct sockaddr *)rp->ai_addr);
     printf("ai_canonname: %s\n\n", rp->ai_canonname?rp->ai_canonname:"NULL");
 
 }
